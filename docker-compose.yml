@@ -1,0 +1,93 @@
+# Common configuration anchors
+x-service-common: &service-common
+  restart: unless-stopped
+  networks:
+    - fera-network
+
+services:
+  # Frontend - Local
+  frontend-local:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    image: fera-frontend-local:latest
+    container_name: fera-frontend-local
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://api.fera-local.net:5000
+    ports:
+      - "5173:3000"
+    networks:
+      - fera-network
+    extra_hosts:
+      - "fera-local.net:10.10.10.10"
+      - "api.fera-local.net:10.10.10.10"
+    profiles:
+      - local
+    depends_on:
+      - backend-local
+  
+  # Backend - Local
+  backend-local:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    image: fera-backend-local:latest
+    container_name: fera-backend-local
+    volumes:
+      - ./backend:/app
+    environment:
+      - FLASK_ENV=development
+      - DB_HOST=database
+      - DB_USER=${DB_USER:-ferauser}
+      - DB_PASSWORD=${DB_PASSWORD:-ferapass}
+      - DB_NAME=${DB_NAME:-fera_local}
+      - REDIS_HOST=redis
+    ports:
+      - "5000:5000"
+    networks:
+      - fera-network
+    extra_hosts:
+      - "fera-local.net:10.10.10.10"
+      - "api.fera-local.net:10.10.10.10"
+    profiles:
+      - local
+    depends_on:
+      - database
+      - redis
+  
+  #######################################
+  # SHARED SERVICES
+  #######################################
+  
+  # Database
+  database:
+    image: postgres:14-alpine
+    container_name: fera-database
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER:-ferauser}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-ferapass}
+      - POSTGRES_DB=${DB_NAME:-fera}
+    <<: *service-common
+  
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: fera-redis
+    volumes:
+      - redis_data:/data
+    <<: *service-common
+
+volumes:
+  postgres_data:
+  redis_data:
+  
+networks:
+  fera-network:
+    name: fera-network
+    driver: bridge

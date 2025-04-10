@@ -8,10 +8,7 @@ COPY package.json package-lock.json* ./
 # Install dependencies
 RUN npm ci
 
-# Copy source code
-# In development, we'll mount the source code as a volume
-# but we still copy it here for cases where the volume isn't mounted
-COPY . .
+
 
 # Expose port (adjust based on your frontend framework's dev server port)
 EXPOSE 5173

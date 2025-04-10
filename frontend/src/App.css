@@ -1,21 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* 
+ * FERA - Ford Employees Recreation Association 
+ * Ford-inspired modern styling
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #0d47a1;
-  --secondary-color: #ffab00;
-  --text-color: #333;
-  --background-color: #f5f5f5;
+  /* Ford Brand Colors */
+  --ford-blue: #003478;
+  --ford-light-blue: #0066b2;
+  --ford-dark-blue: #001e44;
+  --ford-silver: #d9d9d6;
+  --ford-gray: #58595b;
+  --ford-accent: #ff5f00;
+  --ford-light-gray: #f2f2f2;
+  --ford-white: #ffffff;
+  --ford-black: #202020;
+
+  /* Functional Colors */
+  --primary: var(--ford-blue);
+  --secondary: var(--ford-accent);
+  --text: var(--ford-black);
+  --background: var(--ford-white);
+  --card-bg: var(--ford-light-gray);
+  --header-footer-bg: var(--ford-dark-blue);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+  
+  /* Borders */
+  --border-radius: 4px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
   height: 100%;
-  margin: 0;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -25,77 +67,420 @@ body {
 }
 
 .App {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
-h1, h2, h3 {
-  color: var(--primary-color);
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  color: var(--ford-blue);
 }
 
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: var(--spacing-md);
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+  height: 4px;
+  background-color: var(--ford-accent);
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: var(--spacing-xl);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--ford-blue);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: var(--ford-light-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--ford-accent);
+}
+
+ul, ol {
+  margin-left: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+li {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Header */
 header {
-  background-color: var(--primary-color);
-  padding: 1rem;
+  background-color: var(--header-footer-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-md) var(--spacing-xl);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: var(--spacing-sm);
+}
+
+.logo-text {
+  color: var(--ford-white);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  align-items: center;
 }
 
 nav ul {
-  list-style-type: none;
+  display: flex;
+  list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: flex-end;
 }
 
 nav li {
-  margin-left: 1rem;
+  margin: 0 0 0 var(--spacing-xl);
+  position: relative;
 }
 
 nav a {
-  color: white;
+  color: var(--ford-white);
+  font-weight: 500;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  padding: var(--spacing-md) 0;
+  position: relative;
+  display: block;
 }
 
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--ford-accent);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Mobile menu button */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--ford-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Main content */
 main {
   flex: 1;
-  padding: 2rem;
+  padding: var(--spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
+/* Page specific styles */
+.home-page, .clubs-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* FERA Card */
 .fera-card {
-  background-color: white;
-  border: 1px solid var(--primary-color);
-  border-radius: 5px;
-  padding: 1.5rem;
-  margin: 2rem auto;
-  max-width: 600px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  margin: var(--spacing-xl) 0;
+  box-shadow: var(--box-shadow);
+  border-left: 4px solid var(--ford-blue);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fera-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .fera-card h3 {
   margin-top: 0;
+  color: var(--ford-blue);
+  display: flex;
+  align-items: center;
 }
 
+.fera-card h3::before {
+  content: '★';
+  color: var(--ford-accent);
+  margin-right: var(--spacing-sm);
+}
+
+/* Buttons */
 .btn {
   display: inline-block;
-  background-color: var(--secondary-color);
+  background-color: var(--ford-blue);
   color: white;
-  padding: 0.5rem 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
   text-decoration: none;
-  border-radius: 5px;
+  font-size: 0.9rem;
 }
 
+.btn:hover {
+  background-color: var(--ford-light-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: var(--ford-accent);
+}
+
+.btn-secondary:hover {
+  background-color: #ff7b33;
+}
+
+/* FAQ Section */
 .faq-section {
-  text-align: left;
-  margin: 2rem auto;
-  max-width: 800px;
+  margin: var(--spacing-xxl) 0;
+  border-top: 1px solid var(--ford-silver);
+  padding-top: var(--spacing-xl);
 }
 
-.faq-item {
-  margin-bottom: 1.5rem;
+.faq-section h2 {
+  display: inline-block;
+  background-color: var(--ford-blue);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-xl);
 }
 
+.faq-section h3 {
+  color: var(--ford-dark-blue);
+  margin-top: var(--spacing-lg);
+  border-bottom: 1px solid var(--ford-silver);
+  padding-bottom: var(--spacing-xs);
+}
+
+/* Clubs page */
+.club-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+.club-item {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid var(--ford-blue);
+}
+
+.club-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.club-item h2 {
+  font-size: 1.3rem;
+  margin-top: 0;
+  margin-bottom: var(--spacing-sm);
+  color: var(--ford-blue);
+}
+
+/* Footer */
 footer {
-  background-color: #eee;
-  padding: 1rem;
+  background-color: var(--header-footer-bg);
+  color: var(--ford-white);
+  padding: var(--spacing-xl);
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links li {
+  margin: 0 var(--spacing-md);
+}
+
+.footer-links a {
+  color: var(--ford-silver);
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--ford-white);
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: var(--ford-silver);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  header {
+    padding: var(--spacing-sm);
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  nav ul {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: var(--header-footer-bg);
+    flex-direction: column;
+    padding: var(--spacing-md) 0;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    z-index: 99;
+  }
+  
+  nav.open ul {
+    transform: translateY(0);
+  }
+  
+  nav li {
+    margin: 0;
+    text-align: center;
+  }
+  
+  nav a {
+    padding: var(--spacing-md);
+  }
+  
+  .club-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-links {
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+/* Utility classes */
+.text-center {
   text-align: center;
+}
+
+.mt-1 { margin-top: var(--spacing-sm); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mt-3 { margin-top: var(--spacing-lg); }
+.mt-4 { margin-top: var(--spacing-xl); }
+
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+.mb-3 { margin-bottom: var(--spacing-lg); }
+.mb-4 { margin-bottom: var(--spacing-xl); }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.page-num {
+  padding: 8px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}
+
+.page-num:hover {
+  background-color: #f0f0f0;
+}
+
+.active {
+  background-color: #4285f4;
+  color: white;
+  border-color: #4285f4;
 }

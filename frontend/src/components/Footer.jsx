@@ -1,9 +1,8 @@
-
 function Footer() {
   return (
     <footer>
-      <small>FERA</small>
-    </footer>
+      <p>&copy; 2025 FERA. All rights reserved.</p>
+    </footer>  
   )
 }
 

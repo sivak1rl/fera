@@ -2,20 +2,12 @@ FROM node:slim
 
 WORKDIR /app
 
-# Copy package files
 COPY package.json package-lock.json* ./
 
-# Install dependencies
 RUN npm ci
 
-
-
-# Expose port (adjust based on your frontend framework's dev server port)
 EXPOSE 5173
 
 # Start development server
 # Adjust the command based on your frontend framework:
-# For React: npm start
-# For Vue: npm run serve
-# For Angular: ng serve --host 0.0.0.0
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD ["npm", "run", "dev"]

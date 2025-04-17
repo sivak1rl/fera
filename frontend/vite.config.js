@@ -11,6 +11,9 @@ export default defineConfig({
     port: 5173,
     watch: {
       usePolling: true,
-    }
+    },
+    allowedHosts: [
+      "fera_local.net"
+    ]
   }
 })

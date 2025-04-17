@@ -1,0 +1,48 @@
+/* FERA Branding Styles */
+
+:root {
+  --primary-color: #003399; /* Ford Blue */
+  --secondary-color: #ffffff;
+  --accent-color: #f2f2f2;
+  --text-color: #333333;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+.fera-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.fera-header {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 2rem;
+  text-align: center;
+}
+
+.fera-main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.fera-section {
+  margin-bottom: 2rem;
+}
+
+.fera-section h2 {
+  color: var(--primary-color);
+}
+
+.fera-footer {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  text-align: center;
+  padding: 1rem;
+}

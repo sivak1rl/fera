@@ -2,42 +2,42 @@
 x-service-common: &service-common
   restart: unless-stopped
   networks:
-    - fera-network
+    - fera_network
 
 services:
   # Frontend - Local
-  frontend-local:
+  frontend_local:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
-    image: fera-frontend-local:latest
-    container_name: fera-frontend-local
+    image: fera_frontend_local:latest
+    container_name: fera_frontend_local
     volumes:
       - ./frontend:/app
       - /app/node_modules
     environment:
       - VITE_ENV=development
       - NODE_ENV=development
-      - API_URL=http://api.fera-local.net:5000
+      - API_URL=http://api.fera_local.net:5000
     ports:
       - "5173:5173"
     networks:
-      - fera-network
+      - fera_network
     extra_hosts:
-      - "fera-local.net:10.10.10.10"
-      - "api.fera-local.net:10.10.10.10"
+      - "fera_local.net:10.0.96.68"
+      - "api.fera_local.net:10.0.96.68"
     profiles:
       - local
     depends_on:
-      - backend-local
+      - backend_local
   
   # Backend - Local
-  backend-local:
+  backend_local:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
-    image: fera-backend-local:latest
-    container_name: fera-backend-local
+    image: fera_backend_local:latest
+    container_name: fera_backend_local
     volumes:
       - ./backend:/app
     environment:
@@ -50,10 +50,10 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - fera-network
+      - fera_network
     extra_hosts:
-      - "fera-local.net:10.10.10.10"
-      - "api.fera-local.net:10.10.10.10"
+      - "fera_local.net:10.0.96.68"
+      - "api.fera_local.net:10.0.96.68"
     profiles:
       - local
     depends_on:
@@ -67,7 +67,7 @@ services:
   # Database
   database:
     image: postgres:14-alpine
-    container_name: fera-database
+    container_name: fera_database
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -79,7 +79,7 @@ services:
   # Redis
   redis:
     image: redis:7-alpine
-    container_name: fera-redis
+    container_name: fera_redis
     volumes:
       - redis_data:/data
     <<: *service-common
@@ -89,6 +89,6 @@ volumes:
   redis_data:
   
 networks:
-  fera-network:
-    name: fera-network
+  fera_network:
+    name: fera_network
     driver: bridge
